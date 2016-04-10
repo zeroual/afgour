@@ -1,0 +1,24 @@
+{
+  "generator-jhipster": {
+    "baseName": "afgour",
+    "packageName": "com.afgour",
+    "packageFolder": "com/afgour",
+    "authenticationType": "session",
+    "hibernateCache": "no",
+    "clusteredHttpSession": "no",
+    "websocket": "spring-websocket",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Memory",
+    "prodDatabaseType": "mysql",
+    "searchEngine": "no",
+    "useSass": false,
+    "buildTool": "maven",
+    "frontendBuilder": "gulp",
+    "enableTranslation": true,
+    "enableSocialSignIn": true,
+    "rememberMeKey": "ce3389334379fb7589d632a54fa63e1fe318f2c8",
+    "testFrameworks": [
+      "gatling"
+    ]
+  }
+}
