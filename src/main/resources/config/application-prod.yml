@@ -39,7 +39,23 @@ spring:
         password:
     thymeleaf:
         cache: true
+    social:
+            # see https://developers.google.com/+/web/signin/server-side-flow#step_1_create_a_client_id_and_client_secret
+            google:
+                clientId: xxx
+                clientSecret: xxx
 
+            # see https://developers.facebook.com/docs/facebook-login/v2.2
+            facebook:
+                clientId: 1570805036562989
+                clientSecret: caf1fffcff5f047ce158f912ae2c5e90
+
+            # see https://apps.twitter.com/app/
+            twitter:
+                clientId: xxx
+                clientSecret: xxx
+
+            # jhipster-needle-add-social-configuration
 liquibase:
     contexts: prod
 
