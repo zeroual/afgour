@@ -17,6 +17,8 @@ public class WebsocketSecurityConfiguration extends AbstractSecurityWebSocketMes
             // matches any destination that starts with /rooms/
             .simpDestMatchers("/topic/tracker").hasAuthority(AuthoritiesConstants.ADMIN)
             .simpDestMatchers("/topic/**").authenticated()
+            .simpDestMatchers("/app/**").authenticated()
+            .simpDestMatchers("/user/**").authenticated()
             // (i.e. cannot send messages directly to /topic/, /queue/)
             // (i.e. cannot subscribe to /topic/messages/* to get messages sent to
             // /topic/messages-user<id>)

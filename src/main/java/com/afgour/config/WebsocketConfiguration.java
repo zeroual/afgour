@@ -33,8 +33,9 @@ public class WebsocketConfiguration extends AbstractWebSocketMessageBrokerConfig
     public static final String IP_ADDRESS = "IP_ADDRESS";
 
     @Override
-    public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic");
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
+        registry.enableSimpleBroker("/queue", "/topic");
+        registry.setApplicationDestinationPrefixes("/app");
     }
 
     @Override
@@ -54,6 +55,7 @@ public class WebsocketConfiguration extends AbstractWebSocketMessageBrokerConfig
             })
             .withSockJS()
             .setInterceptors(httpSessionHandshakeInterceptor());
+        registry.addEndpoint("/websocket/chat").withSockJS();
     }
 
     @Bean
