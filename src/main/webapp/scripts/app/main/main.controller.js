@@ -21,5 +21,6 @@ angular.module('afgourApp')
         ChatService.subscribe();
         $scope.sendMessage = function () {
             ChatService.sendMessage($scope.message);
+            $scope.message.message = '';
         };
     });

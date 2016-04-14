@@ -1,10 +1,12 @@
 package com.afgour.config;
 
 import com.afgour.security.AuthoritiesConstants;
+import com.afgour.service.PresenceEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Description;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
@@ -76,5 +78,22 @@ public class WebsocketConfiguration extends AbstractWebSocketMessageBrokerConfig
 
             }
         };
+    }
+
+    /*
+ * @Bean
+ *
+ * @Description("Application event multicaster to process events asynchonously"
+ * ) public ApplicationEventMulticaster applicationEventMulticaster() {
+ * SimpleApplicationEventMulticaster multicaster = new
+ * SimpleApplicationEventMulticaster();
+ * multicaster.setTaskExecutor(Executors.newFixedThreadPool(10)); return
+ * multicaster; }
+ */
+    @Bean
+    @Description("Tracks user presence (join / leave) and broacasts it to all connected users")
+    public PresenceEventListener presenceEventListener() {
+        PresenceEventListener presence = new PresenceEventListener();
+        return presence;
     }
 }
