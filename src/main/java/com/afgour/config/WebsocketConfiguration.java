@@ -105,7 +105,7 @@ public class WebsocketConfiguration extends AbstractWebSocketMessageBrokerConfig
                                                RoomChatRepository roomChatRepository,
                                                SimpMessageSendingOperations simpMessageSendingOperations,
                                                HandsRepository handsRepository) {
-        return new ConnectionService(activeSessionsRepository, roomChatRepository, simpMessageSendingOperations, handsRepository);
+        return new ConnectionService(roomChatRepository, simpMessageSendingOperations, handsRepository);
     }
 
     /*
@@ -120,8 +120,9 @@ public class WebsocketConfiguration extends AbstractWebSocketMessageBrokerConfig
  */
     @Bean
     @Description("Tracks user presence (join / leave) and broacasts it to all connected users")
-    public SessionEventListener presenceEventListener(ActiveSessionsRepository activeSessionsRepository) {
-        SessionEventListener presence = new SessionEventListener(activeSessionsRepository);
+    public SessionEventListener presenceEventListener(ActiveSessionsRepository activeSessionsRepository,
+                                                      ConnectionService connectionService) {
+        SessionEventListener presence = new SessionEventListener(activeSessionsRepository,connectionService);
         return presence;
     }
 }

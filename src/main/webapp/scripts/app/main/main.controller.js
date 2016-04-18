@@ -13,8 +13,6 @@ angular.module('afgourApp')
             $scope.account = account;
             $scope.isAuthenticated = Principal.isAuthenticated;
         });
-        ChatService.connect();
-        ChatService.subscribe();
 
         $scope.askForHandshake = function () {
             $scope.handshakeInProgress = true;
