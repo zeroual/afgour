@@ -15,7 +15,6 @@ angular.module('afgourApp')
                         $translate.use(account.langKey).then(function(){
                             $translate.refresh();
                         });
-                        Tracker.sendActivity();
                         deferred.resolve(data);
                     });
                     return cb();

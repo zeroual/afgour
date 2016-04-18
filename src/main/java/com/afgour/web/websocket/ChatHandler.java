@@ -1,5 +1,6 @@
 package com.afgour.web.websocket;
 
+import com.afgour.service.ConnectionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,16 @@ public class ChatHandler {
     @Autowired
     SimpMessageSendingOperations messagingTemplate;
 
+    @Autowired
+    private ConnectionService connectionService;
+
     @MessageMapping("/chat")
-    public Message handleMessage(Message message, Principal principal) {
+    public void handleMessage(Message message, Principal principal) {
         System.out.println("message Received:" + message);
-        System.out.println("message from "+ principal.getName()+" will be send to "+ message .getTo());
-        messagingTemplate.convertAndSendToUser(message.getTo(), "/queue/notifications", message);
-        return message;
+        String username = principal.getName();
+        String partner = connectionService.findWhoIsConnectedTo(username);
+        System.out.println("message from " + username + " will be send to " + partner);
+        messagingTemplate.convertAndSendToUser(partner, "/queue/notifications", message);
     }
 
     @MessageExceptionHandler
@@ -33,37 +38,20 @@ public class ChatHandler {
         logger.error("Error handling message: " + t.getMessage());
         t.printStackTrace();
     }
+
     private static class Message {
 
-        private String message;
-        private String to;
+        private String content;
 
-        public String getMessage() {
-            return message;
+        private Message() {
         }
 
-        public void setMessage(String message) {
-            this.message = message;
+        public String getContent() {
+            return content;
         }
 
-        public String getTo() {
-            return to;
-        }
-
-        public void setTo(String to) {
-            this.to = to;
-        }
-
-        public Message() {
-
-        }
-
-        @Override
-        public String toString() {
-            return "Message{" +
-                "message='" + message + '\'' +
-                ", to='" + to + '\'' +
-                '}';
+        public void setContent(String content) {
+            this.content = content;
         }
     }
 }

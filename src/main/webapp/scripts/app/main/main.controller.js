@@ -1,25 +1,21 @@
 'use strict';
 
 angular.module('afgourApp')
-    .controller('MainController', function ($scope, Principal,ChatService) {
-        $scope.messagesList = [{message: 'hi'}];
+    .controller('MainController', function ($scope, Principal, ChatService, $state) {
 
-        $scope.$on('receivedMessageEvent', function (event, message) {
-            $scope.messagesList.push(message);
-            $scope.$apply();
+        $scope.handshakeInProgress = false;
+
+        $scope.$on('receivedHandshakeEvent', function (event, user) {
+            $state.go('chat');
         });
 
-        $scope.message = {
-            to: '',
-            message: ''
-        };
-        Principal.identity().then(function(account) {
+        Principal.identity().then(function (account) {
             $scope.account = account;
             $scope.isAuthenticated = Principal.isAuthenticated;
         });
-        ChatService.connect();
-        ChatService.subscribe();
-        $scope.sendMessage = function () {
-            ChatService.sendMessage($scope.message);
-        };
+
+        $scope.askForHandshake = function () {
+            $scope.handshakeInProgress = true;
+            ChatService.askForHandshake();
+        }
     });

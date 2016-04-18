@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('afgourApp')
-    .factory('AuthServerProvider', function loginService($http, localStorageService, $window, Tracker) {
+    .factory('AuthServerProvider', function loginService($http, localStorageService, $window, ChatService) {
         return {
             login: function(credentials) {
                 var data = 'j_username=' + encodeURIComponent(credentials.username) +
@@ -16,7 +16,7 @@ angular.module('afgourApp')
                 });
             },
             logout: function() {
-                Tracker.disconnect();
+                ChatService.disconnect();
                 // logout from the server
                 $http.post('api/logout').success(function (response) {
                     localStorageService.clearAll();

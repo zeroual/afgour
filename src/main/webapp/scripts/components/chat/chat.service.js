@@ -3,18 +3,20 @@
 angular.module('afgourApp')
     .factory('ChatService', function ($rootScope, $cookies, $http, $q) {
         var stompClient = null;
-        var subscriber = null;
-        var listener = $q.defer();
+        var messageSubscriber;
+        var handshakeSubscriber;
         var connected = $q.defer();
-        var alreadyConnectedOnce = false;
+
         function sendMessage(message) {
             if (stompClient != null && stompClient.connected) {
                 stompClient
                     .send('/app/chat',
-                    {},
-                    JSON.stringify(message));
+                        {},
+                        JSON.stringify(message));
             }
         }
+
+        //noinspection JSUnresolvedVariable
         return {
             connect: function () {
                 //building absolute path so that websocket doesnt fail when deploying with a context path
@@ -24,48 +26,42 @@ angular.module('afgourApp')
                 stompClient = Stomp.over(socket);
                 var headers = {};
                 headers['X-CSRF-TOKEN'] = $cookies[$http.defaults.xsrfCookieName];
-                stompClient.connect(headers, function(frame) {
+                var deferred = $q.defer();
+                stompClient.connect(headers, function () {
                     connected.resolve("success");
-                    // sendActivity();
-                    if (!alreadyConnectedOnce) {
-                        $rootScope.$on('$stateChangeStart', function (event) {
-                            // sendActivity();
-                        });
-                        alreadyConnectedOnce = true;
-                    }
+                    deferred.resolve('success');
                 });
+                return deferred.promise;
             },
-            subscribe: function() {
-                connected.promise.then(function() {
-                    // subscriber = stompClient.subscribe("/topic/chat", function(payload) {
-                    //     // $rootScope.$broadcast('receivedMessageEvent', JSON.parse(payload.body));
-                    //     // listener.notify(JSON.parse(data.body));
-                    // });
-                    subscriber = stompClient.subscribe("/user/queue/notifications", function(payload) {
-                        $rootScope.$broadcast('receivedMessageEvent', JSON.parse(payload.body));
-                        // listener.notify(JSON.parse(data.body));
+            subscribeToHandshake: function () {
+                connected.promise.then(function () {
+                    handshakeSubscriber= stompClient.subscribe("/user/queue/handshake", function (payload) {
+                        $rootScope.$broadcast('receivedHandshakeEvent', JSON.parse(payload.body));
                     });
                 }, null, null);
             },
-            unsubscribe: function() {
-                if (subscriber != null) {
-                    subscriber.unsubscribe();
-                }
-                listener = $q.defer();
+            subscribeToMessagesReceived: function () {
+                connected.promise.then(function () {
+                    messageSubscriber = stompClient.subscribe("/user/queue/notifications", function (payload) {
+                        $rootScope.$broadcast('receivedMessageEvent', JSON.parse(payload.body));
+                    });
+                }, null, null);
             },
-            receive: function() {
-                return listener.promise;
+            disconnect: function () {
+                if (stompClient != null) {
+                    stompClient.disconnect();
+                    stompClient = null;
+                }
             },
             sendMessage: function (message) {
                 if (stompClient != null) {
                     sendMessage(message);
                 }
             },
-            disconnect: function() {
-                if (stompClient != null) {
-                    stompClient.disconnect();
-                    stompClient = null;
-                }
+            askForHandshake: function () {
+                stompClient.subscribe("/app/handshake", function (payload) {
+                    $rootScope.$broadcast('receivedHandshakeEvent', JSON.parse(payload.body));
+                });
             }
         };
     });

@@ -1,16 +1,22 @@
 package com.afgour.config;
 
+import com.afgour.repository.ActiveSessionsRepository;
+import com.afgour.repository.HandsRepository;
+import com.afgour.repository.RoomChatRepository;
 import com.afgour.security.AuthoritiesConstants;
+import com.afgour.service.ConnectionService;
+import com.afgour.service.SessionEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Description;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
@@ -76,5 +82,47 @@ public class WebsocketConfiguration extends AbstractWebSocketMessageBrokerConfig
 
             }
         };
+    }
+
+    @Bean
+    @Description("Keeps connected users")
+    public ActiveSessionsRepository participantRepository() {
+        return new ActiveSessionsRepository();
+    }
+
+    @Bean
+    public RoomChatRepository roomChatRepository() {
+        return new RoomChatRepository();
+    }
+
+    @Bean
+    public HandsRepository handsRepository(){
+        return new HandsRepository();
+    }
+
+    @Bean
+    public ConnectionService connectionService(ActiveSessionsRepository activeSessionsRepository,
+                                               RoomChatRepository roomChatRepository,
+                                               SimpMessageSendingOperations simpMessageSendingOperations,
+                                               HandsRepository handsRepository) {
+        return new ConnectionService(roomChatRepository, simpMessageSendingOperations, handsRepository);
+    }
+
+    /*
+ * @Bean
+ *
+ * @Description("Application event multicaster to process events asynchonously"
+ * ) public ApplicationEventMulticaster applicationEventMulticaster() {
+ * SimpleApplicationEventMulticaster multicaster = new
+ * SimpleApplicationEventMulticaster();
+ * multicaster.setTaskExecutor(Executors.newFixedThreadPool(10)); return
+ * multicaster; }
+ */
+    @Bean
+    @Description("Tracks user presence (join / leave) and broacasts it to all connected users")
+    public SessionEventListener presenceEventListener(ActiveSessionsRepository activeSessionsRepository,
+                                                      ConnectionService connectionService) {
+        SessionEventListener presence = new SessionEventListener(activeSessionsRepository,connectionService);
+        return presence;
     }
 }
