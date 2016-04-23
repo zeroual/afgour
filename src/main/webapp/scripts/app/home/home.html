@@ -5,14 +5,15 @@
                 <div class="promotion">
                     <div class="column align-self-middle">
                         <svg id="logo" width="594px" height="120px"></svg>
-                        <h1>#CLASSY_PEOPLE
-                            <p>make more connections </p>
-                            <jh-social ng-provider="facebook"></jh-social>
-                        </h1>
                     </div>
-                    <object type="image/svg+xml" data="assets/img/astronaut_bottom.svg" class="svg-astronaut-bottom"></object>
-                    <object type="image/svg+xml" data="assets/img/astronaut_top.svg" class="svg-astronaut-top"></object>
-                    <object type="image/svg+xml" data="assets/img/pam.svg" class="svg-pam hidden-sm"></object>
+                    <div>
+                        <button class="btn handshake-button" ng-click="askForHandshake()" ng-if="!handshakeInProgress">
+                            Talk to some one now
+                        </button>
+                    </div>
+                    <div ng-if="true">
+                        <img class="form-pam ghost" ng-if="handshakeInProgress" src="/assets/img/pam.png" width="200px">
+                    </div>
                 </div>
 
             </div>

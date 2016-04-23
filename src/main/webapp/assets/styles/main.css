@@ -275,3 +275,26 @@ Social Buttons
 /* jhipster-needle-scss-add-main JHipster will add new css style */
 
 /* jhipster-needle-css-add-main JHipster will add new css style */
+
+.handshake-button{
+    color: #fff;
+    background-color: #5cb767;
+    border-radius: 3px;
+    border: 0;
+    font-size: 18px;
+    line-height: 1.4em;
+    padding: 10px;
+    min-width: 36px;
+    height: auto;
+    transition: all 250ms ease-in-out;
+}
+
+.ghost {
+    animation: float 3s ease-out infinite;
+}
+
+@keyframes float {
+    50% {
+        transform: translate(0, 20px);
+    }
+}

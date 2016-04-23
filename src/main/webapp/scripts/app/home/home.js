@@ -3,16 +3,16 @@
 angular.module('afgourApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('index', {
+            .state('home', {
                 parent: 'site',
-                url: '/',
+                url: '/home',
                 data: {
                     authorities: []
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/main/main.html',
-                        controller: 'MainController'
+                        templateUrl: 'scripts/app/home/home.html',
+                        controller: 'HomeController'
                     }
                 },
                 resolve: {

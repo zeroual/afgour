@@ -16,6 +16,8 @@
         <!-- endbuild -->
         <!-- build:css assets/styles/main.css -->
         <link rel="stylesheet" href="assets/styles/main.css">
+        <link rel="stylesheet" href="assets/styles/welcome.css">
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
         <!-- endbuild -->
     </head>
     <body ng-app="afgourApp">
@@ -24,12 +26,8 @@
         <![endif]-->
         <div ng-show="{{ENV === 'dev'}}" class="development" ng-cloak=""></div>
         <div ui-view="navbar" ng-cloak=""></div>
-        <div class="container">
-            <div class="well" ui-view="content"></div>
+        <div ui-view="content">
 
-            <div class="footer">
-                <p translate="footer">This is your footer</p>
-            </div>
         </div>
 
         <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
@@ -140,7 +138,6 @@
     <script src="scripts/app/admin/user-management/user-management-delete-dialog.controller.js"></script>
     <script src="scripts/app/admin/user-management/user-management.controller.js"></script>
     <script src="scripts/app/admin/user-management/user-management.js"></script>
-    <script src="scripts/app/entities/entity.js"></script>
     <script src="scripts/app/error/error.js"></script>
     <script src="scripts/app/main/main.js"></script>
     <script src="scripts/app/main/main.controller.js"></script>
@@ -156,12 +153,11 @@
     <script src="scripts/components/auth/provider/auth.session.service.js"></script>
     <script src="scripts/app/account/sessions/sessions.js"></script>
     <script src="scripts/app/account/sessions/sessions.controller.js"></script>
-    <script src="scripts/app/admin/tracker/tracker.js"></script>
-    <script src="scripts/app/admin/tracker/tracker.controller.js"></script>
-    <script src="scripts/components/tracker/tracker.service.js"></script>
     <script src="scripts/app/chat/chat.js"></script>
     <script src="scripts/app/chat/chat.controller.js"></script>
     <script src="scripts/components/chat/chat.service.js"></script>
+    <script src="scripts/app/home/home.js"></script>
+    <script src="scripts/app/home/home.controller.js"></script>
     <!-- endbuild -->
 </body>
 </html>
