@@ -5,10 +5,10 @@
                 <div id="viewport">
                     <div id="viewport-content">
                         <div class="bubble-container" ng-repeat="message in messagesList">
-                            <div class="avatar" ng-class="{'avatar-left':message.form,'avatar-right':!message.form}">
+                            <div class="avatar" ng-class="{'avatar-left':message.from,'avatar-right':!message.from}">
                                 <img src="/assets/images/unknown.png" />
                             </div>
-                            <div class="bubble" ng-class="{'bubble-left':message.form,'bubble-right':!message.form}">
+                            <div class="bubble" ng-class="{'bubble-left':message.from,'bubble-right':!message.from}">
                                 {{message.content}}
                             </div>
                         </div>
