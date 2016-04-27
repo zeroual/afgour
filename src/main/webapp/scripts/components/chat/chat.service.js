@@ -6,6 +6,7 @@ angular.module('afgourApp')
         var messageSubscriber;
         var handshakeSubscriber;
         var connected = $q.defer();
+        var handshakeEstablished = false;
 
         function sendMessage(message) {
             if (stompClient != null && stompClient.connected) {
@@ -15,6 +16,10 @@ angular.module('afgourApp')
                         JSON.stringify(message));
             }
         }
+
+        $rootScope.$on('receivedHandshakeEvent', function () {
+            handshakeEstablished = true;
+        });
 
         //noinspection JSUnresolvedVariable
         return {
@@ -35,7 +40,7 @@ angular.module('afgourApp')
             },
             subscribeToHandshake: function () {
                 connected.promise.then(function () {
-                    handshakeSubscriber= stompClient.subscribe("/user/queue/handshake", function (payload) {
+                    handshakeSubscriber = stompClient.subscribe("/user/queue/handshake", function (payload) {
                         $rootScope.$broadcast('receivedHandshakeEvent', JSON.parse(payload.body));
                     });
                 }, null, null);
@@ -62,6 +67,9 @@ angular.module('afgourApp')
                 stompClient.subscribe("/app/handshake", function (payload) {
                     $rootScope.$broadcast('receivedHandshakeEvent', JSON.parse(payload.body));
                 });
+            },
+            isHandshakeEstablished: function () {
+                return handshakeEstablished;
             }
         };
     });
