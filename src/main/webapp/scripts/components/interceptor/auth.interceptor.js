@@ -14,7 +14,7 @@ angular.module('afgourApp')
                     Auth.logout();
                     $rootScope.previousStateName = to;
                     $rootScope.previousStateNameParams = params;
-                    $state.go('login');
+                    $state.go('index');
                 } else if (response.status == 403 && response.config.method != 'GET' && getCSRF() == '') {
                     // If the CSRF token expired, then try to get a new CSRF token and retry the old request
                     var $http = $injector.get('$http');

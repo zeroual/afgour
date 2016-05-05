@@ -7,7 +7,7 @@ angular.module('afgourApp')
                 parent: 'site',
                 url: '/home',
                 data: {
-                    authorities: []
+                    authorities: ['ROLE_USER'],
                 },
                 views: {
                     'content@': {
