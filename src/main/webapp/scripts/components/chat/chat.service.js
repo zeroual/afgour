@@ -78,16 +78,16 @@ angular.module('afgourApp')
                 }
             },
             askForHandshake: function () {
-                stompClient.subscribe("/app/handshake");
+                return $http.get('/chat/handshake');
             },
             isHandshakeEstablished: function () {
                 return handshakeEstablished;
             },
             askToShowIdentity: function () {
-                stompClient.subscribe("/app/askToShowIdentity");
+                return $http.get("/identity/request/ask");
             },
             acceptToShowIdentity: function () {
-                stompClient.subscribe("/app/acceptToShowIdentity");
+                return $http.post("/identity/request/accept");
             }
         };
     });

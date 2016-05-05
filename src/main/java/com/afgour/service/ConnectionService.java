@@ -93,7 +93,10 @@ public class ConnectionService {
     }
 
     private Identity getIdentityOf(String username) {
-        SocialUserConnection socialUser = socialUserConnectionRepository.findOneByUserId(username);
+        Optional<SocialUserConnection> socialUserOptional = socialUserConnectionRepository.findOneByUserId(username);
+        SocialUserConnection socialUser = socialUserOptional.
+                orElseThrow(() -> new IllegalStateException("This user dos'nt have a social account:" + username));
+
         return new Identity(socialUser.getDisplayName(), socialUser.getImageURL(), socialUser.getProfileURL());
     }
 

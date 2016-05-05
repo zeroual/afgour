@@ -4,6 +4,7 @@ import com.afgour.domain.SocialUserConnection;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -23,7 +24,7 @@ public interface SocialUserConnectionRepository extends JpaRepository<SocialUser
 
     SocialUserConnection findOneByUserIdAndProviderIdAndProviderUserId(String userId, String providerId, String providerUserId);
 
-    SocialUserConnection findOneByUserId(String userId);
+    Optional<SocialUserConnection> findOneByUserId(String userId);
 
     void deleteByUserIdAndProviderId(String userId, String providerId);
 
