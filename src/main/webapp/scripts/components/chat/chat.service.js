@@ -47,7 +47,7 @@ angular.module('afgourApp')
             },
             subscribeToMessagesReceived: function () {
                 connected.promise.then(function () {
-                    messageSubscriber = stompClient.subscribe("/user/queue/notifications", function (payload) {
+                    messageSubscriber = stompClient.subscribe("/user/queue/messages", function (payload) {
                         $rootScope.$broadcast('receivedMessageEvent', JSON.parse(payload.body));
                     });
                 }, null, null);
@@ -82,12 +82,6 @@ angular.module('afgourApp')
             },
             isHandshakeEstablished: function () {
                 return handshakeEstablished;
-            },
-            askToShowIdentity: function () {
-                return $http.get("/identity/request/ask");
-            },
-            acceptToShowIdentity: function () {
-                return $http.post("/identity/request/accept");
             }
         };
     });

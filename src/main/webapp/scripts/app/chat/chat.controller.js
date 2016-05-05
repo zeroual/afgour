@@ -53,11 +53,11 @@ angular.module('afgourApp')
         };
 
         $scope.sendShowIdentityRequest = function () {
-            ChatService.askToShowIdentity();
+            IdentityRequestService.ask();
         };
 
         $scope.acceptIdentityRequest = function () {
-            ChatService.acceptToShowIdentity()
+            IdentityRequestService.accept();
         };
 
         function animateDisplayingMessage() {

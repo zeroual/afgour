@@ -30,7 +30,7 @@ public class ChatHandler {
         String username = principal.getName();
         String partner = connectionService.findWhoIsConnectedTo(username);
         System.out.println("message from " + username + " will be send to " + partner);
-        messagingTemplate.convertAndSendToUser(partner, "/queue/notifications", message);
+        messagingTemplate.convertAndSendToUser(partner, "/queue/messages", message);
     }
 
     @MessageExceptionHandler
