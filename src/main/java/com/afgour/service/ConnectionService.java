@@ -1,8 +1,8 @@
 package com.afgour.service;
 
 import com.afgour.domain.SocialUserConnection;
+import com.afgour.repository.ConnectionsRepository;
 import com.afgour.repository.HandsRepository;
-import com.afgour.repository.RoomChatRepository;
 import com.afgour.repository.SocialUserConnectionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Service
 public class ConnectionService {
-    private final RoomChatRepository roomChatRepository;
+    private final ConnectionsRepository connectionsRepository;
     private final SimpMessageSendingOperations messagingTemplate;
     private final HandsRepository handsRepository;
     private final Logger log = LoggerFactory.getLogger(SocialService.class);
@@ -24,10 +24,10 @@ public class ConnectionService {
     private SocialUserConnectionRepository socialUserConnectionRepository;
 
     @Autowired
-    public ConnectionService(RoomChatRepository roomChatRepository,
+    public ConnectionService(ConnectionsRepository connectionsRepository,
                              SimpMessageSendingOperations messagingTemplate,
                              HandsRepository handsRepository) {
-        this.roomChatRepository = roomChatRepository;
+        this.connectionsRepository = connectionsRepository;
         this.messagingTemplate = messagingTemplate;
         this.handsRepository = handsRepository;
     }
@@ -49,7 +49,7 @@ public class ConnectionService {
     }
 
     private void addNewConnection(String username, String randomlyUser) {
-        roomChatRepository.addConnection(username, randomlyUser);
+        connectionsRepository.addConnection(username, randomlyUser);
         System.out.println("new handshake " + username + " with" + randomlyUser);
         messagingTemplate.convertAndSendToUser(username, "/queue/handshake", "STARTED");
         messagingTemplate.convertAndSendToUser(randomlyUser, "/queue/handshake", "STARTED");
@@ -57,11 +57,11 @@ public class ConnectionService {
     }
 
     private boolean userAlreadyConnected(String username) {
-        return roomChatRepository.isAlreadyConnected(username);
+        return connectionsRepository.isAlreadyConnected(username);
     }
 
     public String findWhoIsConnectedTo(String username) {
-        return roomChatRepository.findWhoIsConnectedTo(username).orElse(null);
+        return connectionsRepository.findWhoIsConnectedTo(username).orElse(null);
     }
 
     public void removeIfExistConnectionFor(String username) {
@@ -69,21 +69,21 @@ public class ConnectionService {
             String partner = findWhoIsConnectedTo(username);
             log.info("remove connection between " + username + " and " + partner);
             messagingTemplate.convertAndSendToUser(partner, "/queue/handshake", "ENDED");
-            roomChatRepository.removeConnection(username);
+            connectionsRepository.removeConnection(username);
         }
     }
 
     public void askPartnerToShowIdentity(String username) {
-        Optional<RoomChatRepository.Connection> OptionalConnection = roomChatRepository.getConnectionFor(username);
-        RoomChatRepository.Connection connection = OptionalConnection.orElseThrow(() -> new IllegalStateException("askPartnerToShowIdentity: user " + username + "don't have partner"));
+        Optional<ConnectionsRepository.Connection> OptionalConnection = connectionsRepository.getConnectionFor(username);
+        ConnectionsRepository.Connection connection = OptionalConnection.orElseThrow(() -> new IllegalStateException("askPartnerToShowIdentity: user " + username + "don't have partner"));
         connection.showIdentity(username);
         String partner = findWhoIsConnectedTo(username);
         messagingTemplate.convertAndSendToUser(partner, "/queue/identityRequest", "IDENTITY_REQUEST");
     }
 
     public void acceptToShowIdentity(String username) {
-        Optional<RoomChatRepository.Connection> OptionalConnection = roomChatRepository.getConnectionFor(username);
-        RoomChatRepository.Connection connection = OptionalConnection.orElseThrow(() -> new IllegalStateException("askPartnerToShowIdentity: user " + username + "don't have partner"));
+        Optional<ConnectionsRepository.Connection> OptionalConnection = connectionsRepository.getConnectionFor(username);
+        ConnectionsRepository.Connection connection = OptionalConnection.orElseThrow(() -> new IllegalStateException("askPartnerToShowIdentity: user " + username + "don't have partner"));
 
         String partner = findWhoIsConnectedTo(username);
         if (connection.isIdentityRequestAlreadySentFrom(partner)) {

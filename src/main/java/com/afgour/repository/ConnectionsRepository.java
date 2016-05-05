@@ -8,11 +8,11 @@ import java.util.Optional;
 import java.util.Set;
 
 @Repository
-public class RoomChatRepository {
+public class ConnectionsRepository {
 
     private Set<Connection> connectionList = Collections.synchronizedSet(new HashSet<>());
 
-    public RoomChatRepository() {
+    public ConnectionsRepository() {
     }
 
     public void addConnection(String username1, String username2) {

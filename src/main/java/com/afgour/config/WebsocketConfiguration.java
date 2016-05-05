@@ -1,8 +1,8 @@
 package com.afgour.config;
 
 import com.afgour.repository.ActiveSessionsRepository;
+import com.afgour.repository.ConnectionsRepository;
 import com.afgour.repository.HandsRepository;
-import com.afgour.repository.RoomChatRepository;
 import com.afgour.security.AuthoritiesConstants;
 import com.afgour.service.ConnectionService;
 import com.afgour.service.SessionEventListener;
@@ -91,8 +91,8 @@ public class WebsocketConfiguration extends AbstractWebSocketMessageBrokerConfig
     }
 
     @Bean
-    public RoomChatRepository roomChatRepository() {
-        return new RoomChatRepository();
+    public ConnectionsRepository roomChatRepository() {
+        return new ConnectionsRepository();
     }
 
     @Bean
@@ -102,7 +102,7 @@ public class WebsocketConfiguration extends AbstractWebSocketMessageBrokerConfig
 
     @Bean
     public ConnectionService connectionService(ActiveSessionsRepository activeSessionsRepository,
-                                               RoomChatRepository roomChatRepository,
+                                               ConnectionsRepository roomChatRepository,
                                                SimpMessageSendingOperations simpMessageSendingOperations,
                                                HandsRepository handsRepository) {
         return new ConnectionService(roomChatRepository, simpMessageSendingOperations, handsRepository);
