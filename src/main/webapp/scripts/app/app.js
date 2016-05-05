@@ -84,12 +84,12 @@ angular.module('afgourApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalp
         $urlRouterProvider.otherwise('/');
         $stateProvider.state('site', {
             'abstract': true,
-            // views: {
-            //     'navbar@': {
-            //         templateUrl: 'scripts/components/navbar/navbar.html',
-            //         controller: 'NavbarController'
-            //     }
-            // },
+            views: {
+                'navbar@': {
+                    templateUrl: 'scripts/components/navbar/navbar.html',
+                    controller: 'NavbarController'
+                }
+            },
             resolve: {
                 authorize: ['Auth',
                     function (Auth) {

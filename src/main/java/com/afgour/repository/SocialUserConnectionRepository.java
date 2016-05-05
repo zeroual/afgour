@@ -23,6 +23,8 @@ public interface SocialUserConnectionRepository extends JpaRepository<SocialUser
 
     SocialUserConnection findOneByUserIdAndProviderIdAndProviderUserId(String userId, String providerId, String providerUserId);
 
+    SocialUserConnection findOneByUserId(String userId);
+
     void deleteByUserIdAndProviderId(String userId, String providerId);
 
     void deleteByUserIdAndProviderIdAndProviderUserId(String userId, String providerId, String providerUserId);

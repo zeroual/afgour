@@ -52,6 +52,20 @@ angular.module('afgourApp')
                     });
                 }, null, null);
             },
+            subscribeToIdentityRequest: function () {
+                connected.promise.then(function () {
+                    messageSubscriber = stompClient.subscribe("/user/queue/identityRequest", function (payload) {
+                        $rootScope.$broadcast('identityRequestEvent', JSON.parse(payload.body));
+                    });
+                }, null, null);
+            },
+            subscribeToIdentityResolved: function () {
+                connected.promise.then(function () {
+                    messageSubscriber = stompClient.subscribe("/user/queue/identityResolved", function (payload) {
+                        $rootScope.$broadcast('identityResolvedEvent', JSON.parse(payload.body));
+                    });
+                }, null, null);
+            },
             disconnect: function () {
                 if (stompClient != null) {
                     stompClient.disconnect();
@@ -64,12 +78,16 @@ angular.module('afgourApp')
                 }
             },
             askForHandshake: function () {
-                stompClient.subscribe("/app/handshake", function (payload) {
-                    $rootScope.$broadcast('receivedHandshakeEvent', JSON.parse(payload.body));
-                });
+                stompClient.subscribe("/app/handshake");
             },
             isHandshakeEstablished: function () {
                 return handshakeEstablished;
+            },
+            askToShowIdentity: function () {
+                stompClient.subscribe("/app/askToShowIdentity");
+            },
+            acceptToShowIdentity: function () {
+                stompClient.subscribe("/app/acceptToShowIdentity");
             }
         };
     });

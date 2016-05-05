@@ -11,22 +11,16 @@ import org.springframework.stereotype.Controller;
 import java.security.Principal;
 
 @Controller
-public class HandshakeHandler {
+public class ShowIdentityHandlerHandler {
 
     private final Logger log = LoggerFactory.getLogger(SocialService.class);
 
     @Autowired
     private ConnectionService connectionService;
 
-    @SubscribeMapping("/askToShowIdentity")
+    @SubscribeMapping("/handshake")
     public void askToShowIdentity(Principal principal) {
-        log.info("the user " +principal.getName()+" ask partner to show his identity");
-        connectionService.askPartnerToShowIdentity(principal.getName());
-    }
-
-    @SubscribeMapping("/acceptToShowIdentity")
-    public void acceptToShowIdentity(Principal principal) {
-        log.info("the user " +principal.getName()+" accept to show his identity");
-        connectionService.acceptToShowIdentity(principal.getName());
+        log.info("the user " +principal.getName()+" ask for a handshake");
+        connectionService.establishNewConnectionFor(principal.getName());
     }
 }

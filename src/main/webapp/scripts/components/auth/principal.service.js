@@ -64,6 +64,8 @@ angular.module('afgourApp')
                         ChatService.connect().then(function () {
                             ChatService.subscribeToHandshake();
                             ChatService.subscribeToMessagesReceived();
+                            ChatService.subscribeToIdentityRequest();
+                            ChatService.subscribeToIdentityResolved();
                         });
                     })
                     .catch(function() {

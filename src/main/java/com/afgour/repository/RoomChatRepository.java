@@ -2,7 +2,10 @@ package com.afgour.repository;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public class RoomChatRepository {
@@ -28,12 +31,17 @@ public class RoomChatRepository {
 
     public Optional<String> findWhoIsConnectedTo(String username) {
         return connectionList.stream().filter(connection -> connection.isBoundTo(username))
-                                      .map(connection -> connection.getPartnerOf(username)).findFirst();
+            .map(connection -> connection.getPartnerOf(username)).findFirst();
+    }
+
+    public Optional<Connection> getConnectionFor(String username) {
+        return connectionList.stream().filter(connection -> connection.isBoundTo(username)).findFirst();
     }
 
     public static class Connection {
         private final String user1;
         private final String user2;
+        private Optional<String> identityAsker=Optional.empty();
 
         public Connection(String user1, String user2) {
             this.user1 = user1;
@@ -61,6 +69,16 @@ public class RoomChatRepository {
                 return user2;
             else
                 return user1;
+        }
+
+        public void showIdentity(String username) {
+            if (!identityAsker.isPresent()) {
+                this.identityAsker = Optional.of(username);
+            }
+        }
+
+        public boolean isIdentityRequestAlreadySentFrom(String partner) {
+            return identityAsker.equals(Optional.of(partner));
         }
     }
 }

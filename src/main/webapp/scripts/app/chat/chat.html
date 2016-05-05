@@ -1,30 +1,65 @@
 <div id="content-wrapper">
     <div class="page-content">
         <section class="header">
-            <div id="browser-window">
-                <div id="viewport">
-                    <div id="viewport-content">
-                        <div class="bubble-container" ng-repeat="message in messagesList">
-                            <div class="avatar" ng-class="{'avatar-left':message.from,'avatar-right':!message.from}">
-                                <img src="/assets/images/unknown.png" />
-                            </div>
-                            <div class="bubble" ng-class="{'bubble-left':message.from,'bubble-right':!message.from}">
-                                {{message.content}}
+            <div class="row">
+                <div class="col-md-2 col-md-offset-1">
+                    <h5>Amazing Results</h5>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                    <img class="hidden-xs hidden-sm hidden-md" src="/assets/images/arrow1.png">
+                </div>
+                <div class="col-md-4">
+                    <div id="browser-window">
+                        <div id="viewport">
+                            <div id="viewport-content">
+                                <div class="bubble-container" ng-repeat="message in messagesList">
+                                    <div class="avatar"
+                                         ng-class="{'avatar-left':message.from,'avatar-right':!message.from}">
+                                        <img src="/assets/images/unknown.png"/>
+                                    </div>
+                                    <div class="bubble"
+                                         ng-class="{'bubble-left':message.from,'bubble-right':!message.from}">
+                                        {{message.content}}
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        <form class="row-chat" ng-submit="sendMessage()">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="message.content"
+                                       placeholder="Type your message"/>
+
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary" ng-click="">Send</button>
+                            </span>
+                            </div>
+                        </form>
                     </div>
                 </div>
-
-                <form class="row-chat" ng-submit="sendMessage()">
-                    <div class="input-group">
-                        <input type="text" class="form-control" ng-model="message.content" placeholder="Type your message" />
-
-                <span class="input-group-btn">
-                    <button type="submit" class="btn btn-primary" ng-click="">Send</button>
-                </span>
+                <div class="col-md-2">
+                    <div class="thumbnail">
+                        <img ng-src="{{partner.image}}" width="180" height="180" class="img-thumbnail">
+                        <div class="caption">
+                            <h4> <a href="{{partner.facebook}}"> {{partner.name}} </a> </h4>
+                            <p><a ng-click="sendShowIdentityRequest()" ng-if="identityRequest==false"
+                                  class="btn btn-primary">
+                                show your picture :D </a>
+                            </p>
+                        </div>
+                        <div class="caption">
+                            <p>
+                                <a class="btn btn-warning" ng-if="identityRequest==true"
+                                   ng-click="acceptIdentityRequest()">I Accept</a></p>
+                        </div>
                     </div>
 
-                </form>
+                </div>
+                <div class="col-md-2">
+                    <br>
+                    <img class="hidden-xs hidden-sm hidden-md" src="/assets/images/arrow2.png">
+                    <h5>Awesome Design</h5>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                </div>
             </div>
         </section>
     </div><!-- End Page Content -->
