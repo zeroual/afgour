@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('afgourApp')
-    .controller('ChatController', function ($rootScope, $scope, $state, ChatService) {
+    .controller('ChatController', function ($rootScope, $scope, $state, ChatService,IdentityRequestService) {
 
 
         // if (!ChatService.isHandshakeEstablished()) {
@@ -54,6 +54,7 @@ angular.module('afgourApp')
 
         $scope.sendShowIdentityRequest = function () {
             IdentityRequestService.ask();
+            $scope.identityRequestSent=true;
         };
 
         $scope.acceptIdentityRequest = function () {
