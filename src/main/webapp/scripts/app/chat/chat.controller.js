@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('afgourApp')
-    .controller('ChatController', function ($rootScope, $scope, $state, ChatService,IdentityRequestService) {
+    .controller('ChatController', function ($rootScope, $scope, $state, ChatService, IdentityRequestService) {
 
 
         // if (!ChatService.isHandshakeEstablished()) {
@@ -17,7 +17,7 @@ angular.module('afgourApp')
             from: "me"
         };
         $scope.partner = {
-            image: '/assets/images/unknown.png',
+            image: '/assets/images/user.jpg',
             name: '',
             profileUrl: ''
 
@@ -26,6 +26,10 @@ angular.module('afgourApp')
             $scope.messagesList.push(message);
             animateDisplayingMessage();
             $scope.$apply();
+        });
+
+        $scope.$on('handshakeLostEvent', function () {
+            alert('handshakeLostEvent');
         });
 
         $rootScope.$on('identityRequestEvent', function () {
@@ -54,7 +58,7 @@ angular.module('afgourApp')
 
         $scope.sendShowIdentityRequest = function () {
             IdentityRequestService.ask();
-            $scope.identityRequestSent=true;
+            $scope.identityRequestSent = true;
         };
 
         $scope.acceptIdentityRequest = function () {

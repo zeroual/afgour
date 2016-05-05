@@ -5,10 +5,10 @@ angular.module('afgourApp')
 
         $scope.handshakeInProgress = false;
 
-        $scope.$on('receivedHandshakeEvent', function (event, user) {
+        $scope.$on('receivedHandshakeEvent', function () {
             $state.go('chat');
         });
-
+        
         Principal.identity().then(function (account) {
             $scope.account = account;
             $scope.isAuthenticated = Principal.isAuthenticated;

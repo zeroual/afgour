@@ -17,11 +17,6 @@ angular.module('afgourApp')
             }
         }
 
-        $rootScope.$on('receivedHandshakeEvent', function () {
-            handshakeEstablished = true;
-        });
-
-        //noinspection JSUnresolvedVariable
         return {
             connect: function () {
                 //building absolute path so that websocket doesnt fail when deploying with a context path
@@ -41,7 +36,14 @@ angular.module('afgourApp')
             subscribeToHandshake: function () {
                 connected.promise.then(function () {
                     handshakeSubscriber = stompClient.subscribe("/user/queue/handshake", function (payload) {
-                        $rootScope.$broadcast('receivedHandshakeEvent', JSON.parse(payload.body));
+                        var status = JSON.parse(payload.body);
+                        if (status === 'STARTED') {
+                            handshakeEstablished = true;
+                            $rootScope.$broadcast('receivedHandshakeEvent', JSON.parse(payload.body));
+                        } else {
+                            handshakeEstablished = false;
+                            $rootScope.$broadcast('handshakeLostEvent', JSON.parse(payload.body))
+                        }
                     });
                 }, null, null);
             },
