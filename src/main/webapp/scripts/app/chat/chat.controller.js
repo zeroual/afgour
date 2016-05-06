@@ -4,9 +4,9 @@ angular.module('afgourApp')
     .controller('ChatController', function ($rootScope, $scope, $state, ChatService, IdentityRequestService) {
 
 
-        // if (!ChatService.isHandshakeEstablished()) {
-        //     redirectToHomePage();
-        // }
+        if (!ChatService.isHandshakeEstablished()) {
+            redirectToHomePage();
+        }
 
         $scope.identityRequest = false;
         $scope.identityRequestResolved = false;
@@ -29,7 +29,10 @@ angular.module('afgourApp')
         });
 
         $scope.$on('handshakeLostEvent', function () {
-            alert('handshakeLostEvent');
+           $scope.handshakeLost=true;
+            $scope.$apply();
+            animateDisplayingMessage();
+
         });
 
         $rootScope.$on('identityRequestEvent', function () {
