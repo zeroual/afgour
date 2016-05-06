@@ -88,6 +88,7 @@ public class ConnectionService {
         String partner = findWhoIsConnectedTo(username);
         if (connection.isIdentityRequestAlreadySentFrom(partner)) {
             messagingTemplate.convertAndSendToUser(partner, "/queue/identityResolved", getIdentityOf(username));
+            messagingTemplate.convertAndSendToUser(username, "/queue/identityResolved", getIdentityOf(partner));
         }
 
     }
