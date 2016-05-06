@@ -49,7 +49,7 @@
                     <div class="thumbnail">
                         <img ng-src="{{partner.image}}" width="180" height="180" class="img-thumbnail">
                         <div class="caption">
-                            <h4><a href="{{partner.facebook}}"> {{partner.name}} </a></h4>
+                            <h4><a href="{{partner.facebook}}" target="_blank"> {{partner.name}} </a></h4>
                             <p><a ng-click="sendShowIdentityRequest()"
                                   ng-if="identityRequest==false && !identityRequestSent"
                                   class="btn btn-primary">
