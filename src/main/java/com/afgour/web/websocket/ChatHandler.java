@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
-import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
 
-import javax.inject.Inject;
 import java.security.Principal;
 
 @Controller
@@ -29,7 +27,7 @@ public class ChatHandler {
         System.out.println("message Received:" + message);
         String username = principal.getName();
         String partner = connectionService.findWhoIsConnectedTo(username);
-        System.out.println("message from " + username + " will be send to " + partner);
+        System.out.println("message from " + username + " will be send to " + partner+" > "+message.content);
         messagingTemplate.convertAndSendToUser(partner, "/queue/messages", message);
     }
 
