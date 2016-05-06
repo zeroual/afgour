@@ -12,6 +12,10 @@
                                 <button class="btn handshake-button" ng-click="askForHandshake()" ng-if="!handshakeInProgress">
                                     Take my chance now
                                 </button>
+                                <div>
+                                    <span>Users online:</span> {{members.onLine}}
+                                    <span>Members total:</span> {{members.total}}
+                                </div>
                             </div>
                             <div ng-if="true">
                                 <img class="form-pam ghost" ng-if="handshakeInProgress" src="/assets/images/pam.png" width="200px">

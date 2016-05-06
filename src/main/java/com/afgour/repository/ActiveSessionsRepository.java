@@ -21,4 +21,8 @@ public class ActiveSessionsRepository {
     public void removeActiveUserWith(String sessionId) {
         activeSessions.remove(sessionId);
     }
+
+    public int count() {
+        return activeSessions.size();
+    }
 }
