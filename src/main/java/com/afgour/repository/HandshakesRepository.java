@@ -2,14 +2,17 @@ package com.afgour.repository;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 @Repository
-public class HandsRepository {
+public class HandshakesRepository {
 
     private Set<String> handList = Collections.synchronizedSet(new HashSet<>());
 
-    public HandsRepository() {
+    public HandshakesRepository() {
 
     }
 

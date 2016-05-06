@@ -2,7 +2,7 @@ package com.afgour.config;
 
 import com.afgour.repository.ActiveSessionsRepository;
 import com.afgour.repository.ConnectionsRepository;
-import com.afgour.repository.HandsRepository;
+import com.afgour.repository.HandshakesRepository;
 import com.afgour.security.AuthoritiesConstants;
 import com.afgour.service.ConnectionService;
 import com.afgour.service.SessionEventListener;
@@ -96,16 +96,16 @@ public class WebsocketConfiguration extends AbstractWebSocketMessageBrokerConfig
     }
 
     @Bean
-    public HandsRepository handsRepository(){
-        return new HandsRepository();
+    public HandshakesRepository handsRepository(){
+        return new HandshakesRepository();
     }
 
     @Bean
     public ConnectionService connectionService(ActiveSessionsRepository activeSessionsRepository,
                                                ConnectionsRepository roomChatRepository,
                                                SimpMessageSendingOperations simpMessageSendingOperations,
-                                               HandsRepository handsRepository) {
-        return new ConnectionService(roomChatRepository, simpMessageSendingOperations, handsRepository);
+                                               HandshakesRepository handshakesRepository) {
+        return new ConnectionService(roomChatRepository, simpMessageSendingOperations, handshakesRepository);
     }
 
     /*
@@ -121,8 +121,8 @@ public class WebsocketConfiguration extends AbstractWebSocketMessageBrokerConfig
     @Bean
     @Description("Tracks user presence (join / leave) and broacasts it to all connected users")
     public SessionEventListener presenceEventListener(ActiveSessionsRepository activeSessionsRepository,
-                                                      ConnectionService connectionService ,HandsRepository handsRepository) {
-        SessionEventListener presence = new SessionEventListener(activeSessionsRepository,connectionService,handsRepository);
+                                                      ConnectionService connectionService , HandshakesRepository handshakesRepository) {
+        SessionEventListener presence = new SessionEventListener(activeSessionsRepository,connectionService, handshakesRepository);
         return presence;
     }
 }

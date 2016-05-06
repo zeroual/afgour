@@ -1,7 +1,7 @@
 package com.afgour.service;
 
 import com.afgour.repository.ActiveSessionsRepository;
-import com.afgour.repository.HandsRepository;
+import com.afgour.repository.HandshakesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +21,17 @@ public class SessionEventListener {
 
     private final ActiveSessionsRepository activeSessionsRepository;
     private final ConnectionService connectionService;
-    private final HandsRepository handsRepository;
+    private final HandshakesRepository handshakesRepository;
 
     private  Logger log = LoggerFactory.getLogger(SessionEventListener.class);
 
     @Autowired
     public SessionEventListener(ActiveSessionsRepository activeSessionsRepository,
                                 ConnectionService connectionService,
-                                HandsRepository handsRepository ) {
+                                HandshakesRepository handshakesRepository) {
         this.activeSessionsRepository = activeSessionsRepository;
         this.connectionService = connectionService;
-        this.handsRepository = handsRepository;
+        this.handshakesRepository = handshakesRepository;
     }
 
     @EventListener
@@ -51,7 +51,7 @@ public class SessionEventListener {
                 log.info("user disconnected " + username);
                 activeSessionsRepository.removeActiveUserWith(event.getSessionId());
                 connectionService.removeIfExistConnectionFor(username);
-                handsRepository.removeHand(username);
+                handshakesRepository.removeHand(username);
             });
 
     }

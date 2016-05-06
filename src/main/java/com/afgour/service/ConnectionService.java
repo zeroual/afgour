@@ -2,7 +2,7 @@ package com.afgour.service;
 
 import com.afgour.domain.SocialUserConnection;
 import com.afgour.repository.ConnectionsRepository;
-import com.afgour.repository.HandsRepository;
+import com.afgour.repository.HandshakesRepository;
 import com.afgour.repository.SocialUserConnectionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +16,9 @@ import java.util.Optional;
 @Service
 public class ConnectionService {
     private final ConnectionsRepository connectionsRepository;
+    private final HandshakesRepository handshakesRepository;
+
     private final SimpMessageSendingOperations messagingTemplate;
-    private final HandsRepository handsRepository;
     private final Logger log = LoggerFactory.getLogger(SocialService.class);
 
     @Autowired
@@ -26,18 +27,18 @@ public class ConnectionService {
     @Autowired
     public ConnectionService(ConnectionsRepository connectionsRepository,
                              SimpMessageSendingOperations messagingTemplate,
-                             HandsRepository handsRepository) {
+                             HandshakesRepository handshakesRepository) {
         this.connectionsRepository = connectionsRepository;
         this.messagingTemplate = messagingTemplate;
-        this.handsRepository = handsRepository;
+        this.handshakesRepository = handshakesRepository;
     }
 
     public void establishNewConnectionFor(String username) {
 
-        if (handsRepository.isEmpty()) {
-            handsRepository.addHand(username);
+        if (handshakesRepository.isEmpty()) {
+            handshakesRepository.addHand(username);
         } else {
-            Optional<String> optionalPartner = handsRepository.retrieveRandomlyOneHand(username);
+            Optional<String> optionalPartner = handshakesRepository.retrieveRandomlyOneHand(username);
             if (!optionalPartner.isPresent()) {
                 return;
             }
