@@ -573,6 +573,35 @@ footer .love {
     animation: circle-path 5s linear infinite -2s
 }
 
+@media only screen and (max-width: 1280px) {
+    .svg-astronaut-bottom {
+        width: 140px;
+        right: 156px;
+        bottom: 80px
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .homepage-marketing__cta .button {
+        font-size: 16px
+    }
+
+    .svg-astronaut-bottom {
+        right: 273px;
+        bottom: 50px;
+        width: 150px
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .svg-astronaut-bottom {
+        right: 20px;
+        bottom: 10px;
+        width: 96px;
+        opacity: .65
+    }
+}
+
 .svg-astronaut-top {
     position: absolute;
     top: -25px;
@@ -580,6 +609,30 @@ footer .love {
     width: 143px;
     -webkit-animation: circle-path 5s linear infinite;
     animation: circle-path 5s linear infinite
+}
+
+@media only screen and (max-width: 1280px) {
+    .svg-astronaut-top {
+        width: 120px;
+        top:20px;
+        right: 45px
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .svg-astronaut-top {
+        right: 40px;
+        top: 20px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .svg-astronaut-top {
+        opacity: .65;
+        top: 8px;
+        right: 40px;
+        width: 80px;
+    }
 }
 
 .svg-pam {
@@ -593,7 +646,8 @@ footer .love {
 @media only screen and (max-width: 1280px) {
     .svg-pam {
         width: 108px;
-        right: 25px
+        right: 25px;
+        bottom: -40px;
     }
 }
 

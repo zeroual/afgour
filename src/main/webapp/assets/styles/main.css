@@ -297,3 +297,15 @@ Social Buttons
         transform: translate(0, 20px);
     }
 }
+
+.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
