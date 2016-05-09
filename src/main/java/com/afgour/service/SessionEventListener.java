@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.socket.messaging.SessionConnectEvent;
+import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import java.util.Optional;
@@ -23,7 +23,7 @@ public class SessionEventListener {
     private final ConnectionService connectionService;
     private final HandshakesRepository handshakesRepository;
 
-    private  Logger log = LoggerFactory.getLogger(SessionEventListener.class);
+    private Logger log = LoggerFactory.getLogger(SessionEventListener.class);
 
     @Autowired
     public SessionEventListener(ActiveSessionsRepository activeSessionsRepository,
@@ -35,12 +35,10 @@ public class SessionEventListener {
     }
 
     @EventListener
-    private void handleSessionConnected(SessionConnectEvent event) {
+    private void handleSessionConnected(SessionConnectedEvent event) {
         SimpMessageHeaderAccessor headers = SimpMessageHeaderAccessor.wrap(event.getMessage());
         String username = headers.getUser().getName();
-        // We store the session as we need to be idempotent in the disconnect event processing
-        log.info("user connected " + username);
-        activeSessionsRepository.save(headers.getSessionId(), username);
+        log.info("user connected : " + username);
     }
 
     @EventListener
@@ -49,7 +47,6 @@ public class SessionEventListener {
         Optional.ofNullable(activeSessionsRepository.getActiveUserFrom(event.getSessionId()))
             .ifPresent(username -> {
                 log.info("user disconnected " + username);
-                activeSessionsRepository.removeActiveUserWith(event.getSessionId());
                 connectionService.removeIfExistConnectionFor(username);
                 handshakesRepository.removeHand(username);
             });
