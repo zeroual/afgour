@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('afgourApp')
-    .controller('ChatController', function ($rootScope, $scope, $state, ChatService, IdentityRequestService) {
+    .controller('ChatController', function ($rootScope, $scope, $state, $uibModal, ChatService, IdentityRequestService) {
 
 
         if (!ChatService.isHandshakeEstablished()) {
@@ -29,7 +29,7 @@ angular.module('afgourApp')
         });
 
         $scope.$on('handshakeLostEvent', function () {
-           $scope.handshakeLost=true;
+            $scope.handshakeLost = true;
             $scope.$apply();
             animateDisplayingMessage();
 
@@ -66,6 +66,26 @@ angular.module('afgourApp')
 
         $scope.acceptIdentityRequest = function () {
             IdentityRequestService.accept();
+        };
+
+        $scope.endHandshake = function () {
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'scripts/app/chat/confirm-end-handshake.html',
+                controller: function ($scope, $uibModalInstance) {
+                    $scope.ok = function () {
+                        $uibModalInstance.close();
+                    };
+
+                    $scope.cancel = function () {
+                        $uibModalInstance.dismiss('cancel');
+                    };
+                }
+            });
+
+            modalInstance.result.then(function () {
+               $state.go('home')
+            });
         };
 
         function animateDisplayingMessage() {

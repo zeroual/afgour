@@ -5,9 +5,9 @@
 
                 <div class="col-md-2">
                     <br>
-                    <img class="hidden-xs hidden-sm hidden-md" src="/assets/images/arrow2.png">
                     <h5>chkoun li moura tswira</h5>
                     <p>hum , bghiti ta3raf mazyan chkoun li moura tswira , sawlo :D </p>
+                    <img class="hidden-xs hidden-sm hidden-md" src="/assets/images/arrow1.png"/>
                 </div>
 
                 <div class="col-md-2">
@@ -18,14 +18,22 @@
                             <p><a ng-click="sendShowIdentityRequest()"
                                   ng-if="identityRequest==false && !identityRequestSent"
                                   class="btn btn-primary">
-                                  Sawal lakhor ibayan wajho ^^ </a>
+                                9olih ibayan tswirto ^^ </a>
                             </p>
                         </div>
                         <div class="caption">
                             <p>
                                 <a class="btn btn-warning" ng-if="identityRequest==true"
-                                   ng-click="acceptIdentityRequest()">9abl tbayan wajhak ?</a></p>
+                                   ng-click="acceptIdentityRequest()">9abl tbayan tswirtak ?</a></p>
                         </div>
+
+                        <hr/>
+                        <button type="button"
+                                class="btn btn-warning"
+                                ng-click="endHandshake()">
+                            choof wahad akhor ?
+                        </button>
+
                     </div>
 
                 </div>
@@ -36,7 +44,8 @@
                                 <div class="bubble-container" ng-repeat="message in messagesList">
                                     <div class="avatar"
                                          ng-class="{'avatar-left':message.from,'avatar-right':!message.from}">
-                                        <img src="/assets/images/unknown.png"/>
+                                        <img ng-src="/assets/images/logo.png" ng-if="!message.from"/>
+                                        <img ng-src="/assets/images/pam.png" ng-if="message.from"/>
                                     </div>
                                     <div class="bubble"
                                          ng-class="{'bubble-left':message.from,'bubble-right':!message.from}">
@@ -71,7 +80,7 @@
                 <div class="col-md-2 col-md-offset-1">
                     <h5>Enjoy</h5>
                     <p>Plop, bach afgour ib9a n9i , 3afak htarm kolchi</p>
-                    <img class="hidden-xs hidden-sm hidden-md" src="/assets/images/arrow1.png">
+                    <img class="hidden-xs hidden-sm hidden-md" src="/assets/images/arrow2.png"/>
                 </div>
             </div>
         </section>
