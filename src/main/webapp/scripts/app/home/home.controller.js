@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('afgourApp')
-    .controller('HomeController', function ($scope, Principal, ChatService, $state,$http) {
+    .controller('HomeController', function ($scope, Principal, ChatService, $state,$http,$timeout) {
 
         $scope.handshakeInProgress = false;
 
@@ -25,6 +25,9 @@ angular.module('afgourApp')
 
         $scope.askForHandshake = function () {
             $scope.handshakeInProgress = true;
-            ChatService.askForHandshake();
+            $timeout(function() {
+                ChatService.askForHandshake();
+            }, 1000);
+
         }
     });

@@ -646,11 +646,18 @@ footer .love {
 @media only screen and (max-width: 1280px) {
     .svg-pam {
         width: 108px;
-        right: 25px;
-        bottom: -40px;
+        right: 50%;
+        bottom: 80px;
     }
 }
 
+@media only screen and (max-width: 480px) {
+    .svg-pam {
+        width: 108px;
+        right: 10px;
+        bottom: 26px;
+    }
+}
 /*BUTTONS*/
 .button-fill-facebook {
     color: #fff;
