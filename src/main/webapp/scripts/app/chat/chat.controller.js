@@ -8,6 +8,30 @@ angular.module('afgourApp')
             redirectToHomePage();
         }
 
+        window.onbeforeunload = function (e) {
+            return "Are you sure you want to navigate away from this page";
+        };
+
+        $scope.$on('$locationChangeStart', function (event) {
+            event.preventDefault();
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'scripts/app/chat/confirm-end-handshake.html',
+                controller: function ($scope, $uibModalInstance) {
+                    $scope.ok = function () {
+                        $uibModalInstance.close();
+                    };
+
+                    $scope.cancel = function () {
+                        $uibModalInstance.dismiss('cancel');
+                    };
+                }
+            });
+            modalInstance.result.then(function () {
+                redirectToHomePage();
+            });
+        });
+
         $scope.identityRequest = false;
         $scope.identityRequestResolved = false;
 
@@ -84,7 +108,7 @@ angular.module('afgourApp')
             });
 
             modalInstance.result.then(function () {
-               $state.go('home')
+                redirectToHomePage();
             });
         };
 
