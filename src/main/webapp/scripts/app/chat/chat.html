@@ -1,24 +1,32 @@
 <div id="content-wrapper">
     <div class="page-content">
         <section class="header">
-            <div class="row">
 
+            <div class="row">
+                <div>
+                    <div class="column align-self-middle">
+                        <img src="/assets/images/logo.png" id="logo" width="200px"/>
+                    </div>
+                </div>
                 <div class="col-md-2">
                     <br>
-                    <h5>chkoun li moura tswira</h5>
-                    <p>hum , bghiti ta3raf mazyan chkoun li moura tswira , sawlo :D </p>
+                    <h5>Tu veux savoir c'est qui dériere la photo ?</h5>
+                    <p>hum , cette personne a attiré ton attention et tu as envie de voir son visage,
+                    juste demande :)
+                    </p>
                     <img class="hidden-xs hidden-sm hidden-md" src="/assets/images/arrow1.png"/>
                 </div>
 
                 <div class="col-md-2">
-                    <div>
+                    <div class="box">
                         <img ng-src="{{partner.image}}" width="180" height="180" class="img-thumbnail">
                         <div class="caption">
                             <h4><a href="{{partner.facebook}}" target="_blank"> {{partner.name}} </a></h4>
                             <p><a ng-click="sendShowIdentityRequest()"
                                   ng-if="identityRequest==false && !identityRequestSent"
                                   class="btn btn-primary">
-                                9olih ibayan tswirto ^^ </a>
+                                Afficher ta photo
+                            </a>
                             </p>
                         </div>
                         <div class="caption">
@@ -27,24 +35,17 @@
                                    ng-click="acceptIdentityRequest()">9abl tbayan tswirtak ?</a></p>
                         </div>
 
-                        <hr/>
-                        <button type="button"
-                                class="btn btn-warning"
-                                ng-click="endHandshake()">
-                            choof wahad akhor ?
-                        </button>
                     </div>
                 </div>
-                <hr/>
                 <div class="col-md-6 col-sm-12 col-xs-12">
                     <div class="chat_window">
                         <div class="top_menu">
-                            <div class="buttons">
-                                <div class="button close"></div>
-                                <div class="button minimize"></div>
-                                <div class="button maximize"></div>
-                            </div>
-                            <div class="title">Chat</div>
+                            <span class="title">Chat</span>
+                            <button  class="pull-right btn-warning"
+                                ng-click="endHandshake()">
+                                <i class="glyphicon glyphicon-remove"></i>
+                                Quitter la discussion
+                            </button>
                         </div>
                         <ul class="messages">
                             <li class="message appeared"
@@ -67,7 +68,8 @@
                                            ng-model="message.content">
                                       <span class="input-group-btn">
                                         <button class="btn button-send-message"
-                                                type="button">Send</button>
+                                                ng-submit="sendMessage()"
+                                                type="submit">Send</button>
                                       </span>
                                 </div>
                             </form>
@@ -78,15 +80,3 @@
         </section>
     </div><!-- End Page Content -->
 </div>
-
-<div class="message_template">
-    <li class="message">
-        <div class="avatar"></div>
-        <div class="text_wrapper">
-            <div class="text"></div>
-        </div>
-    </li>
-</div>
-
-
-

@@ -1,5 +1,4 @@
 .chat_window {
-    width: calc(100% - 20px);
     max-width: 800px;
     height: 500px;
     border-radius: 10px;
@@ -13,34 +12,8 @@
 .top_menu {
     background-color: #fff;
     width: 100%;
-    padding: 20px 0 15px;
+    padding: 15px;
     box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
-}
-
-.top_menu .buttons {
-    margin: 3px 0 0 20px;
-    position: absolute;
-}
-
-.top_menu .buttons .button {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 10px;
-    position: relative;
-}
-
-.top_menu .buttons .button.close {
-    background-color: #f5886e;
-}
-
-.top_menu .buttons .button.minimize {
-    background-color: #fdbf68;
-}
-
-.top_menu .buttons .button.maximize {
-    background-color: #a3d063;
 }
 
 .top_menu .title {
@@ -179,4 +152,83 @@
     height: 50px;
     -webkit-border-radius: 30px; /* Saf3+, Chrome */
     border-radius: 30px; /* Opera 10.5, IE 9 */
+}
+
+
+.box {
+    background: #fff;
+    margin-bottom: 15px;
+    padding: 5px;
+}
+
+@media only screen and (min-width: 768px) {
+    .box {
+        border-radius: 3px;
+        border: 1px solid #e0e3e9
+    }
+}
+
+.box__header {
+    padding: 5px;
+    border-bottom: 1px solid #ebeef2
+}
+
+@media only screen and (min-width: 768px) {
+    .box__header {
+        padding: 10px 10px 10px 22px;
+    }
+}
+
+.box__header--mobile {
+    background: #2e9fff;
+    color: #fff;
+    position: relative;
+    padding: 15px 7.5px
+}
+
+.box__header--mobile h2 {
+    text-align: center
+}
+
+.box__header--mobile .icon-left-bracket {
+    font-size: 15px
+}
+
+.box__header--mobile-back {
+    color: #fff;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%
+}
+
+.box__content {
+    padding: 15px 15px 30px
+}
+
+@media only screen and (min-width: 768px) {
+    .box__content {
+        padding: 22.5px 22.5px 30px
+    }
+}
+
+.box__footer {
+    padding: 15px;
+    border-top: 1px solid #ebeef2
+}
+
+@media only screen and (min-width: 768px) {
+    .box__footer {
+        padding: 22.5px
+    }
+}
+
+.box__footer .button {
+    transition: all .1s ease-in-out
+}
+
+.box-heading {
+    font-size: 22px;
+    font-weight: 500
 }
