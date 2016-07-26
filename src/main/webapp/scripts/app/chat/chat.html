@@ -12,7 +12,7 @@
                     <br>
                     <h5>Tu veux savoir c'est qui dériere la photo ?</h5>
                     <p>hum , cette personne a attiré ton attention et tu as envie de voir son visage,
-                    juste demande :)
+                        juste demande :)
                     </p>
                     <img class="hidden-xs hidden-sm hidden-md" src="/assets/images/arrow1.png"/>
                 </div>
@@ -41,8 +41,8 @@
                     <div class="chat_window">
                         <div class="top_menu">
                             <span class="title">Chat</span>
-                            <button  class="pull-right btn-warning"
-                                ng-click="endHandshake()">
+                            <button class="pull-right btn-warning"
+                                    ng-click="endHandshake()">
                                 <i class="glyphicon glyphicon-remove"></i>
                                 Quitter la discussion
                             </button>
@@ -59,19 +59,28 @@
                                     <div class="text">{{::message.content}}</div>
                                 </div>
                             </li>
+                            <div class="alert alert-warning" ng-if="handshakeLost">
+                                <strong> Oops! , ton partenaire a quitter la discution </strong>
+                                <p>
+                                    <a ui-sref="home">Peut-être vous voulez essayer à nouveau, cliquez ici pour
+                                        redémarrer.</a>
+                                </p>
+                            </div>
                         </ul>
                         <div class="bottom_wrapper clearfix">
                             <form ng-submit="sendMessage()">
-                                <div class="input-group">
-                                    <input type="text" class="form-control message-input"
-                                           placeholder="Ecrire un message"
-                                           ng-model="message.content">
+                                <fieldset ng-disabled="handshakeLost">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control message-input"
+                                               placeholder="Ecrire un message"
+                                               ng-model="message.content">
                                       <span class="input-group-btn">
                                         <button class="btn button-send-message"
                                                 ng-submit="sendMessage()"
                                                 type="submit">Send</button>
                                       </span>
-                                </div>
+                                    </div>
+                                </fieldset>
                             </form>
                         </div>
                     </div>

@@ -17,7 +17,7 @@ angular.module('afgourApp')
                 event.preventDefault();
                 askUserForLeavingConfirmation().then(function () {
                     $scope.userConfirmToLeaveDiscution = true;
-                    redirectToHomePage();
+                    ChatService.removeHandshake().then(redirectToHomePage);
                 });
             }
         });

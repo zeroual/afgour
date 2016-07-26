@@ -24,4 +24,10 @@ public class HandshakeResource {
         log.info("the user " + principal.getName() + " ask for a handshake");
         connectionService.establishNewConnectionFor(principal.getName());
     }
+
+    @RequestMapping(value = "/chat/handshake", method = RequestMethod.DELETE)
+    public void removeHandshake(Principal principal) {
+        log.info("the user " + principal.getName() + " leave the handshake");
+        connectionService.destroyConnectionOf(principal.getName());
+    }
 }

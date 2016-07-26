@@ -56,6 +56,10 @@ public class ConnectionService {
         messagingTemplate.convertAndSendToUser(randomlyUser, "/queue/handshake", "STARTED");
         log.info("connection established with " + username + " and " + randomlyUser);
     }
+    public void destroyConnectionOf(String username) {
+        removeIfExistConnectionFor(username);
+        handshakesRepository.removeHand(username);
+    }
 
     private boolean userAlreadyConnected(String username) {
         return connectionsRepository.isAlreadyConnected(username);

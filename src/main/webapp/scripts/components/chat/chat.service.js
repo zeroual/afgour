@@ -82,6 +82,9 @@ angular.module('afgourApp')
             askForHandshake: function () {
                 return $http.get('/chat/handshake');
             },
+            removeHandshake: function () {
+                return $http.delete('/chat/handshake');
+            },
             isHandshakeEstablished: function () {
                 return handshakeEstablished;
             }
