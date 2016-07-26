@@ -33,58 +33,59 @@
                                 ng-click="endHandshake()">
                             choof wahad akhor ?
                         </button>
-
                     </div>
-
                 </div>
-                <div class="col-md-4">
-                    <div id="browser-window">
-                        <div id="viewport">
-                            <div id="viewport-content">
-                                <div class="bubble-container" ng-repeat="message in messagesList">
-                                    <div class="avatar"
-                                         ng-class="{'avatar-left':message.from,'avatar-right':!message.from}">
-                                        <img ng-src="/assets/images/logo.png" ng-if="!message.from"/>
-                                        <img ng-src="/assets/images/pam.png" ng-if="message.from"/>
-                                    </div>
-                                    <div class="bubble"
-                                         ng-class="{'bubble-left':message.from,'bubble-right':!message.from}">
-                                        {{message.content}}
-                                    </div>
-                                </div>
-                                <div class="alert alert-warning" ng-if="handshakeLost">
-                                    <strong> Opps , hadak li kanti kathdar m3ah mcha :( </strong>
-                                    <p>
-                                        <a ui-sref="home">bark hna bach ta3awd tahdar m3a chi wahad</a>
-                                    </p>
-                                </div>
+                <hr/>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="chat_window">
+                        <div class="top_menu">
+                            <div class="buttons">
+                                <div class="button close"></div>
+                                <div class="button minimize"></div>
+                                <div class="button maximize"></div>
                             </div>
+                            <div class="title">Chat</div>
                         </div>
-
-                        <form class="row-chat" ng-submit="sendMessage()">
-                            <fieldset ng-disabled="handshakeLost">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="message.content"
-                                           placeholder="Type your message"/>
-
-                                    <span class="input-group-btn">
-                                        <button type="submit" class="btn btn-primary" ng-click="">Sift</button>
-                                    </span>
+                        <ul class="messages">
+                            <li class="message appeared"
+                                ng-repeat="message in messagesList"
+                                ng-class="::{'left':message.from,'right':!message.from}">
+                                <div class="avatar">
+                                    <img ng-src="/assets/images/logo.png" ng-if="::!message.from"/>
+                                    <img ng-src="/assets/images/pam.png" ng-if="::message.from"/>
                                 </div>
-
-                            </fieldset>
-                        </form>
+                                <div class="text_wrapper">
+                                    <div class="text">{{::message.content}}</div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="bottom_wrapper clearfix">
+                            <form ng-submit="sendMessage()">
+                                <div class="input-group">
+                                    <input type="text" class="form-control message-input"
+                                           placeholder="Ecrire un message"
+                                           ng-model="message.content">
+                                      <span class="input-group-btn">
+                                        <button class="btn button-send-message"
+                                                type="button">Send</button>
+                                      </span>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-md-2 col-md-offset-1">
-                    <h5>Enjoy</h5>
-                    <p>Plop, bach afgour ib9a n9i , 3afak htarm kolchi</p>
-                    <img class="hidden-xs hidden-sm hidden-md" src="/assets/images/arrow2.png"/>
                 </div>
             </div>
         </section>
     </div><!-- End Page Content -->
+</div>
+
+<div class="message_template">
+    <li class="message">
+        <div class="avatar"></div>
+        <div class="text_wrapper">
+            <div class="text"></div>
+        </div>
+    </li>
 </div>
 
 

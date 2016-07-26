@@ -12,24 +12,14 @@ angular.module('afgourApp')
             return "Are you sure you want to navigate away from this page";
         };
 
-        $scope.$on('$locationChangeStart', function (event) {
-            event.preventDefault();
-            var modalInstance = $uibModal.open({
-                animation: true,
-                templateUrl: 'scripts/app/chat/confirm-end-handshake.html',
-                controller: function ($scope, $uibModalInstance) {
-                    $scope.ok = function () {
-                        $uibModalInstance.close();
-                    };
-
-                    $scope.cancel = function () {
-                        $uibModalInstance.dismiss('cancel');
-                    };
-                }
-            });
-            modalInstance.result.then(function () {
-                redirectToHomePage();
-            });
+        $rootScope.$on('$stateChangeStart', function (event) {
+            if (!$scope.userConfirmToLeaveDiscution) {
+                event.preventDefault();
+                askUserForLeavingConfirmation().then(function () {
+                    $scope.userConfirmToLeaveDiscution = true;
+                    redirectToHomePage();
+                });
+            }
         });
 
         $scope.identityRequest = false;
@@ -93,6 +83,19 @@ angular.module('afgourApp')
         };
 
         $scope.endHandshake = function () {
+            redirectToHomePage();
+        };
+
+        function animateDisplayingMessage() {
+            var $messages = $('.messages');
+            $messages.animate({scrollTop: $messages.prop('scrollHeight')}, 300);
+        }
+
+        function redirectToHomePage() {
+            $state.go('home');
+        }
+
+        function askUserForLeavingConfirmation() {
             var modalInstance = $uibModal.open({
                 animation: true,
                 templateUrl: 'scripts/app/chat/confirm-end-handshake.html',
@@ -106,20 +109,7 @@ angular.module('afgourApp')
                     };
                 }
             });
-
-            modalInstance.result.then(function () {
-                redirectToHomePage();
-            });
-        };
-
-        function animateDisplayingMessage() {
-            $("#viewport-content").animate({
-                bottom: $("#viewport-content").height() - $("#viewport").height() + 80
-            }, 250);
-        }
-
-        function redirectToHomePage() {
-            $state.go('home');
+            return modalInstance.result;
         }
 
     });
