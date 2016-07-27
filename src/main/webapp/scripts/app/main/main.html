@@ -2,21 +2,43 @@
     <div class="row">
         <div class="promotion">
             <div class="column align-self-middle">
-                <img src="/assets/images/logo.png" id="logo" width="300px"/>
-                <h1>#CLASSY_PEOPLE
-                    <p> f Afgour hdar m3a li bghiti f Facebook bla mathtaj t9ol chkoun nta</p>
-                    <jh-social ng-provider="facebook"></jh-social>
-                    <div class="singin-information">
-                        <p class="info">
-                            Bla matkhaf man waloo, ila dkhalti b l facebook dyalak , afgour maghadich yakhod waloo man
-                            les données dyalak :)
-                        </p>
-                        <p class="info">
-                            O zid Afgour maghadich i poster hta haja f l mure dyalak , man hadchi kolo hta wahad
-                            maghadich i3raf wach rak hna :D
-                        </p>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div>
+                            <img src="/assets/images/logo.png" id="logo" width="300px"/>
+                        </div>
+                        <div>
+                            <h2>#Afgour “Toutes les rencontres se font par hasard.”</h2>
+                            <p>
+                                Afgour te permettra de discuter et faire des rencontres avec des
+                                inconnus au hasard sur Facebook sans divulguer ton identité
+                            </p>
+                            <jh-social ng-provider="facebook"></jh-social>
+                        </div>
                     </div>
-                </h1>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div>
+                            <h3>
+                                Chater seulement avec des texto ...
+                            </h3>
+                        </div>
+                        <div class="chat_window">
+                            <div class="top_menu">
+                                <div class="title">Chat</div>
+                            </div>
+                            <ul class="messages">
+                                <li ng-repeat="message in demoMessages"
+                                    ng-class="{'left':message.side=='left','right':message.side=='right'}"
+                                    class="message appeared">
+                                    <div class="avatar"></div>
+                                    <div class="text_wrapper">
+                                        <div class="text">{{message.text}}</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <object type="image/svg+xml" data="/assets/images/pam.svg" class="svg-pam hidden-sm"></object>
