@@ -18,12 +18,12 @@
                                     <i class="glyphicon glyphicon-send"></i>
                                 </button>
                                 <div>
-                                    <span>Users en ligne:</span> {{members.onLine}}
+                                    <span>Members en ligne:</span> {{members.onLine}}
                                     <span>Members total:</span> {{members.total}}
                                 </div>
                             </div>
                             <div ng-if="handshakeInProgress">
-                                <p>Afgour est entrain de vous cherchez quelqu'un pour discuter</p>
+                                <p>Afgour est entrain de vous chercher quelqu'un pour discuter</p>
                                 <img class="form-pam ghost"src="/assets/images/pam.png"
                                      width="200px">
                             </div>
@@ -31,13 +31,13 @@
                         <div class="col-md-2" ng-if="!handshakeInProgress">
                             <br>
                             <img class="hidden-xs hidden-sm hidden-md" src="/assets/images/arrow2.png">
-                            <h3>cliquez ici pour commencer une discussion</h3>
-                            <p>"tu sais jamais a quel point le harsard peut faire pour arranger les choses"</p>
+                            <h3>Cliquez ici pour commencer une discussion</h3>
+                            <p>"Vous savez jamais à quel point le harsard fait bien les choses :)"</p>
                         </div>
                     </div>
                 </div>
 
             </div>
         </section>
-    </div><!-- End Page Content -->
+    </div>
 </div>

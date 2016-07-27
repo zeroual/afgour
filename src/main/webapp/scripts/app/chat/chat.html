@@ -10,14 +10,14 @@
                 </div>
                 <div class="col-md-2">
                     <br>
-                    <h5>Tu veux savoir c'est qui dériere la photo ?</h5>
-                    <p>hum , cette personne a attiré ton attention et tu as envie de voir son visage,
-                        juste demande :)
+                    <h5> Voulez vous savoir c'est qui dériere la photo ?</h5>
+                    <p>hum , cette personne a attiré votre attention et vous avez envie de voir son visage,
+                        il suffit de demander :)
                     </p>
                     <img class="hidden-xs hidden-sm hidden-md" src="/assets/images/arrow1.png"/>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="box">
                         <img ng-src="{{partner.image}}" width="180" height="180" class="img-thumbnail">
                         <div class="caption">
@@ -25,14 +25,14 @@
                             <p><a ng-click="sendShowIdentityRequest()"
                                   ng-if="identityRequest==false && !identityRequestSent"
                                   class="btn btn-primary">
-                                Afficher ta photo
+                                Demander d'afficher la photo
                             </a>
                             </p>
                         </div>
                         <div class="caption">
                             <p>
                                 <a class="btn btn-warning" ng-if="identityRequest==true"
-                                   ng-click="acceptIdentityRequest()">afficher votre photo ?</a></p>
+                                   ng-click="acceptIdentityRequest()">Vous accepter d'afficher votre photo?</a></p>
                         </div>
 
                     </div>
@@ -44,7 +44,7 @@
                             <button class="pull-right btn-warning"
                                     ng-click="endHandshake()">
                                 <i class="glyphicon glyphicon-remove"></i>
-                                Quitter la discussion
+                                Quitter cette discussion
                             </button>
                         </div>
                         <ul class="messages">
@@ -60,9 +60,9 @@
                                 </div>
                             </li>
                             <div class="alert alert-warning" ng-if="handshakeLost">
-                                <strong> Oops! , ton partenaire a quitter la discution </strong>
+                                <strong> Oops!, votre partenaire a quitté cette discussion </strong>
                                 <p>
-                                    <a ui-sref="home">Peut-être vous voulez essayer à nouveau, cliquez ici pour
+                                    <a ui-sref="home">voulez vous essayer à nouveau, cliquez ici pour
                                         redémarrer.</a>
                                 </p>
                             </div>
@@ -87,5 +87,5 @@
                 </div>
             </div>
         </section>
-    </div><!-- End Page Content -->
+    </div>
 </div>
