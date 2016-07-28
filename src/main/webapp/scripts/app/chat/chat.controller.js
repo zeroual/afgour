@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('afgourApp')
-    .controller('ChatController', function ($rootScope, $scope, $state, $uibModal, ChatService, IdentityRequestService) {
+    .controller('ChatController', function ($rootScope, $scope, $state, $uibModal, ChatService, IdentityRequestService, ToasterService) {
 
 
         if (!ChatService.isHandshakeEstablished()) {
@@ -52,6 +52,7 @@ angular.module('afgourApp')
         $rootScope.$on('identityRequestEvent', function () {
             $scope.identityRequest = true;
             $scope.$apply();
+            ToasterService.success("Votre partenaire vous demande d'afficher vos photos au même temps");
         });
 
         $rootScope.$on('identityResolvedEvent', function (event, identity) {
@@ -61,6 +62,7 @@ angular.module('afgourApp')
             $scope.partner.facebook = identity.url;
             console.log('identity resolved', identity);
             $scope.$apply();
+            ToasterService.success("Votre partenaire a accepté votre demande d'afficher sa photo");
         });
 
 

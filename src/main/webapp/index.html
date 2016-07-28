@@ -12,6 +12,7 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/ngToast/dist/ngToast.min.css">
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css assets/styles/main.css -->
@@ -21,6 +22,7 @@
     <!-- endbuild -->
 </head>
 <body ng-app="afgourApp">
+<toast></toast>
 <div class="container-fluid">
     <!--[if lt IE 9]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a
@@ -80,6 +82,7 @@
 <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
 <script src="bower_components/sockjs-client/dist/sockjs.js"></script>
 <script src="bower_components/stomp-websocket/lib/stomp.min.js"></script>
+<script src="bower_components/ngToast/dist/ngToast.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -174,6 +177,8 @@
 <script src="scripts/components/chat/chat.service.js"></script>
 <script src="scripts/app/home/home.js"></script>
 <script src="scripts/app/home/home.controller.js"></script>
+<script src="scripts/components/toaster/toaster.js"></script>
+<script src="scripts/components/toaster/toaster.service.js"></script>
 <!-- endbuild -->
 </body>
 </html>
