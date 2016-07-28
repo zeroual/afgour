@@ -38,12 +38,14 @@ public class SessionEventListener {
     private void handleSessionConnected(SessionConnectedEvent event) {
         SimpMessageHeaderAccessor headers = SimpMessageHeaderAccessor.wrap(event.getMessage());
         String username = headers.getUser().getName();
+        activeSessionsRepository.add(headers.getSessionId(), username);
         log.info("user connected : " + username);
     }
 
     @EventListener
     private void handleSessionDisconnect(SessionDisconnectEvent event) {
 
+        activeSessionsRepository.remove(event.getSessionId());
         Optional.ofNullable(activeSessionsRepository.getActiveUserFrom(event.getSessionId()))
             .ifPresent(username -> {
                 log.info("user disconnected " + username);
