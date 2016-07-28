@@ -4,7 +4,6 @@ import com.afgour.domain.Authority;
 import com.afgour.domain.User;
 import com.afgour.repository.AuthorityRepository;
 import com.afgour.repository.UserRepository;
-
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -37,9 +36,6 @@ public class SocialService {
     @Inject
     private UserRepository userRepository;
 
-    @Inject
-    private MailService mailService;
-
     public void createSocialUser(Connection<?> connection, String langKey) {
         if (connection == null) {
             log.error("Cannot create social user because connection is null");
@@ -49,7 +45,6 @@ public class SocialService {
         String providerId = connection.getKey().getProviderId();
         User user = createUserIfNotExist(userProfile, langKey, providerId);
         createSocialConnection(user.getLogin(), connection);
-        mailService.sendSocialRegistrationValidationEmail(user, providerId);
     }
 
     private User createUserIfNotExist(UserProfile userProfile, String langKey, String providerId) {
