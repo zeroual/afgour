@@ -87,6 +87,9 @@ angular.module('afgourApp')
             },
             isHandshakeEstablished: function () {
                 return handshakeEstablished;
+            },
+            isAlreadyConnected: function () {
+                return stompClient != null && stompClient.connected
             }
         };
     });
