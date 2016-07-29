@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('afgourApp')
-    .factory('Principal', function Principal($q, Account, ChatService) {
+    .factory('Principal', function Principal($q, Account) {
         var _identity,
             _authenticated = false;
 
@@ -61,12 +61,6 @@ angular.module('afgourApp')
                         _identity = account.data;
                         _authenticated = true;
                         deferred.resolve(_identity);
-                        ChatService.connect().then(function () {
-                            ChatService.subscribeToHandshake();
-                            ChatService.subscribeToMessagesReceived();
-                            ChatService.subscribeToIdentityRequest();
-                            ChatService.subscribeToIdentityResolved();
-                        });
                     })
                     .catch(function() {
                         _identity = null;

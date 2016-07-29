@@ -1,13 +1,29 @@
 'use strict';
 
 angular.module('afgourApp')
-    .controller('HomeController', function ($scope, Principal, ChatService, $state,$http,$timeout) {
+    .controller('HomeController', function ($scope, Principal, ChatService, $state, $http, $timeout) {
+
+
+        window.onbeforeunload = function (e) {
+            if(ChatService.isAlreadyConnected()){
+                ChatService.disconnect();
+            }
+        };
+
+        if (!ChatService.isAlreadyConnected()) {
+            ChatService.connect().then(function () {
+                ChatService.subscribeToHandshake();
+                ChatService.subscribeToMessagesReceived();
+                ChatService.subscribeToIdentityRequest();
+                ChatService.subscribeToIdentityResolved();
+            });
+        }
 
         $scope.handshakeInProgress = false;
 
-        $scope.members={
-            onLine:1,
-            total:1
+        $scope.members = {
+            onLine: 1,
+            total: 1
         };
 
         $http.get('/chat/members').then(function (response) {
