@@ -19,6 +19,7 @@ import javax.inject.Inject;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class SocialService {
@@ -51,8 +52,8 @@ public class SocialService {
         String email = userProfile.getEmail();
         String userName = userProfile.getUsername();
         if (StringUtils.isBlank(email) && StringUtils.isBlank(userName)) {
-            log.error("Cannot create social user because email and login are null");
-            throw new IllegalArgumentException("Email and login cannot be null");
+            userName = UUID.randomUUID().toString();
+            log.error("user wi email and login are null");
         }
         if (StringUtils.isBlank(email) && userRepository.findOneByLogin(userName).isPresent()) {
             log.error("Cannot create social user because email is null and login already exist, login -> {}", userName);
