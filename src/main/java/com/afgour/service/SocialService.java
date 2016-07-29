@@ -71,6 +71,9 @@ public class SocialService {
         authorities.add(authorityRepository.findOne("ROLE_USER"));
 
         User newUser = new User();
+        if(login==null){
+            login = userName;
+        }
         newUser.setLogin(login);
         newUser.setPassword(encryptedPassword);
         newUser.setFirstName(userProfile.getFirstName());
