@@ -1,0 +1,10 @@
+<form action="{{ providerURL }}" method="POST">
+    <button type="submit" class="btn button-fill-facebook">
+        <img src="/assets/images/pam.png" width="50"/>
+        <span>
+           Je commence maintenant
+        </span>
+    </button>
+    <input name="scope" type="hidden" value="{{ providerSetting }}"/>
+    <input name="_csrf" type="hidden" value="{{ csrf }}"/>
+</form>
